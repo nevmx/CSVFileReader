@@ -4,12 +4,12 @@ import java.util.List;
 // This is one single CSVFile
 public class CSVFile {
 	private String[] fields;
-	private Entry[] entries;
+	private Record[] records;
 	
 	//Constructor
-	public CSVFile(String[] fields_constr, Entry[] entries_constr) {
+	public CSVFile(String[] fields_constr, Record[] records_constr) {
 		this.fields = fields_constr;
-		this.entries = entries_constr;
+		this.records = records_constr;
 	}
 	
 	//Getter
@@ -17,8 +17,8 @@ public class CSVFile {
 		return fields;
 	}
 	
-	public Entry[] getEntries() {
-		return entries;
+	public Record[] getEntries() {
+		return records;
 	}
 	
 	public int getIdx(String field) {
@@ -39,21 +39,21 @@ public class CSVFile {
 	//Methods
 	
 	//Find a value - any field - return first occurrence
-	public Entry seek(String value) {
-		//To hold values of one entry
+	public Record seek(String value) {
+		//To hold values of one record
 		String[] values;
 		
-		//Cycle through all entries of this file
-		for (int i = 0; i < this.entries.length; i++) {
-			//Store values of one entry into values
-			values = entries[i].getValues();
+		//Cycle through all records of this file
+		for (int i = 0; i < this.records.length; i++) {
+			//Store values of one record into values
+			values = records[i].getValues();
 			
 			//Cycle through all values
 			for (int j = 0; j < values.length; j++) {
 				
-				//If it is what we're looking for, return entries[i]
+				//If it is what we're looking for, return records[i]
 				if (value.equals(values[j])) {
-					return entries[i];
+					return records[i];
 				}
 			}
 		}
@@ -62,24 +62,24 @@ public class CSVFile {
 	}
 	
 	//Find a value - any field - find all occurrences
-	public Entry[] seekAll(String value) {
-		//To hold values of one entry
+	public Record[] seekAll(String value) {
+		//To hold values of one record
 		String[] values;
 		
 		//To hold temporarily all the results - the list needs to grow
-		List<Entry> needles = new ArrayList<Entry>();
+		List<Record> needles = new ArrayList<Record>();
 		
-		//Cycle through all entries of this file
-		for (int i = 0; i < this.entries.length; i++) {
-			//Store values of one entry into values
-			values = entries[i].getValues();
+		//Cycle through all records of this file
+		for (int i = 0; i < this.records.length; i++) {
+			//Store values of one record into values
+			values = records[i].getValues();
 			
 			//Cycle through all values
 			for (int j = 0; j < values.length; j++) {
 				
-				//If it is what we're looking for, add entries[i] to needles
+				//If it is what we're looking for, add records[i] to needles
 				if (value.equals(values[j])) {
-					needles.add(entries[i]);
+					needles.add(records[i]);
 				}
 			}
 		}
@@ -88,8 +88,8 @@ public class CSVFile {
 			return null;
 		}
 		
-		//Create an array of entries and copy the List into it
-		Entry[] ret = new Entry[needles.size()];
+		//Create an array of records and copy the List into it
+		Record[] ret = new Record[needles.size()];
 		needles.toArray(ret);
 		
 		//Return it
@@ -97,8 +97,8 @@ public class CSVFile {
 	}
 	
 	//Find a value - in field field - first occurrence (overloaded method)
-	public Entry seek(String field, String value) {
-		//To hold values of one entry
+	public Record seek(String field, String value) {
+		//To hold values of one record
 		String[] values;
 		
 		//Get index of the field we're looking for
@@ -108,14 +108,14 @@ public class CSVFile {
 		if (field_idx == -1)
 			return null;
 		
-		//Cycle through all entries of this file
-		for (int i = 0; i < this.entries.length; i++) {
-			//Store values of one entry into values
-			values = entries[i].getValues();
+		//Cycle through all records of this file
+		for (int i = 0; i < this.records.length; i++) {
+			//Store values of one record into values
+			values = records[i].getValues();
 			
-			//If it is what we're looking for, return entries[i]
+			//If it is what we're looking for, return records[i]
 			if (value.equals(values[field_idx])) {
-				return entries[i];
+				return records[i];
 			}
 			
 		}
@@ -124,12 +124,12 @@ public class CSVFile {
 	}
 	
 	//Find a value - any field - find all occurrences
-	public Entry[] seekAll(String field, String value) {
-		//To hold values of one entry
+	public Record[] seekAll(String field, String value) {
+		//To hold values of one record
 		String[] values;
 		
 		//To hold temporarily all the results - the list needs to grow
-		List<Entry> needles = new ArrayList<Entry>();
+		List<Record> needles = new ArrayList<Record>();
 		
 		//Get index of the field we're looking for
 		int field_idx = this.getIdx(field);
@@ -138,14 +138,14 @@ public class CSVFile {
 		if (field_idx == -1)
 			return null;
 		
-		//Cycle through all entries of this file
-		for (int i = 0; i < this.entries.length; i++) {
-			//Store values of one entry into values
-			values = entries[i].getValues();
+		//Cycle through all records of this file
+		for (int i = 0; i < this.records.length; i++) {
+			//Store values of one record into values
+			values = records[i].getValues();
 			
-			//If it is what we're looking for, add entries[i] to needles
+			//If it is what we're looking for, add records[i] to needles
 			if (value.equals(values[field_idx])) {
-				needles.add(entries[i]);
+				needles.add(records[i]);
 			}
 			
 		}
@@ -154,8 +154,8 @@ public class CSVFile {
 			return null;
 		}
 		
-		//Create an array of entries and copy the List into it
-		Entry[] ret = new Entry[needles.size()];
+		//Create an array of records and copy the List into it
+		Record[] ret = new Record[needles.size()];
 		needles.toArray(ret);
 		
 		//Return it

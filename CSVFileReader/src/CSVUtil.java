@@ -38,9 +38,9 @@ public class CSVUtil {
 		fields = file.get(0).split(",");
 		
 		//TODO: Implement values reading
-		Entry[] entries = new Entry[file.size()-1];
+		Record[] entries = new Record[file.size()-1];
 		for (int i = 1; i < file.size(); i++) {
-			entries[i-1] = new Entry(file.get(i).split(","));
+			entries[i-1] = new Record(file.get(i).split(","));
 		}
 		
 		//Create the file
@@ -50,7 +50,7 @@ public class CSVUtil {
 		return csvfile;
 	}
 	
-	public int seekEntry(Entry[] haystack, Entry needle) {
+	public int seekRecord(Record[] haystack, Record needle) {
 		for (int i = 0; i < haystack.length; i++) {
 			if (haystack[i].toString().equals(needle.toString())) {
 				return i;
