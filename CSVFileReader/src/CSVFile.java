@@ -17,7 +17,7 @@ public class CSVFile {
 		return fields;
 	}
 	
-	public Record[] getEntries() {
+	public Record[] getRecords() {
 		return records;
 	}
 	

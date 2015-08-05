@@ -50,6 +50,30 @@ public class CSVUtil {
 		return csvfile;
 	}
 	
+	//write a CSVFile object to a file
+	public static int writeCSVFile(CSVFile csv_file, String file_path) throws IOException {
+		//open things
+		FileOutputStream fos = new FileOutputStream(file_path);
+		OutputStreamWriter osw = new OutputStreamWriter(fos, "utf-8");
+		Writer writer = new BufferedWriter(osw);
+		
+		//write the fields string
+		writer.write(toFormattedString(csv_file.getFields()) + System.lineSeparator());
+		
+		//write all the records
+		Record[] records = csv_file.getRecords();
+		//for each record call its toString method
+		for (int i = 0; i < records.length; i++) {
+			writer.write(records[i].toString() + System.lineSeparator());
+		}
+		
+		//close
+		writer.close();
+		osw.close();
+		fos.close();
+		return 0;
+	}
+	
 	public int seekRecord(Record[] haystack, Record needle) {
 		for (int i = 0; i < haystack.length; i++) {
 			if (haystack[i].toString().equals(needle.toString())) {
@@ -57,5 +81,16 @@ public class CSVUtil {
 			}
 		}
 		return -1;
+	}
+	
+	//format a string for proper CSV output
+	public static String toFormattedString(String[] str) {
+		String ret = "";
+		int i;
+		for (i = 0; i < str.length - 1; i++) {
+			ret += str[i] + ", ";
+		}
+		ret += str[i];
+		return ret;
 	}
 }

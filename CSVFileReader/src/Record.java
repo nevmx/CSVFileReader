@@ -16,6 +16,7 @@ public class Record {
 	
 	//toString
 	public String toString() {
+		/*
 		String ret = "";
 		int i;
 		for (i = 0; i < values.length - 1; i++) {
@@ -23,5 +24,7 @@ public class Record {
 		}
 		ret += values[i];
 		return ret;
+		*/
+		return CSVUtil.toFormattedString(this.values);
 	}
 }
