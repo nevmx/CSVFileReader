@@ -74,6 +74,7 @@ public class CSVUtil {
 		return 0;
 	}
 	
+	//find a Record in a Record[] and return the index
 	public int seekRecord(Record[] haystack, Record needle) {
 		for (int i = 0; i < haystack.length; i++) {
 			if (haystack[i].toString().equals(needle.toString())) {
@@ -81,6 +82,24 @@ public class CSVUtil {
 			}
 		}
 		return -1;
+	}
+	
+	//join two Record[]'s together
+	public static Record[] join(Record[] a, Record[] b) {
+		Record[] c = new Record[a.length + b.length];
+		int i;
+		
+		//first copy a
+		for (i = 0; i < a.length; i++) {
+			c[i] = a[i];
+		}
+		
+		//then copy b
+		for (; i < a.length + b.length; i++) {
+			c[i] = b[i - a.length];
+		}
+		
+		return c;
 	}
 	
 	//format a string for proper CSV output
