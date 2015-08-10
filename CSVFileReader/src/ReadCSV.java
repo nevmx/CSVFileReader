@@ -5,23 +5,19 @@ public class ReadCSV {
 	public static void main(String[] args) {
 		try {
 			CSVFile file = CSVUtil.readCSVFile("google_transit/stops.txt");
+			file.print();
 			
-			Record[] zone_six = file.seekAll("zone_id", "6");
-			Record[] zone_five = file.seekAll("zone_id", "5");
+			Record stop_one = file.seek("LVL2C");
+			Record stop_one_copy = file.seek("LVL2C");
+			Record stop_two = file.seek("LVL2A");
 			
-			Record[] both = CSVUtil.join(zone_five, zone_six);
+			System.out.println(stop_one.compareTo(stop_one_copy));
+			System.out.println(stop_one.compareTo(stop_two));
 			
-			/*
-			for (int i = 0; i < both.length; i++) {
-				System.out.println(both[i]);
-			}
-			*/
+			stop_one.print();
 			
-			String[] fields = file.getFields();
-			CSVFile new_file = new CSVFile(fields, both);
-			
-			//write the new_file to a text file
-			CSVUtil.writeCSVFile(new_file, "hello2.txt");
+			CSVFile file2 = file.copy();
+			file2.print();
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

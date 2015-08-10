@@ -123,7 +123,7 @@ public class CSVFile {
 		return null;
 	}
 	
-	//Find a value - any field - find all occurrences
+	//Find a value - in field field - find all occurrences (overloaded)
 	public Record[] seekAll(String field, String value) {
 		//To hold values of one record
 		String[] values;
@@ -160,5 +160,19 @@ public class CSVFile {
 		
 		//Return it
 		return ret;
+	}
+	
+	//print out the contents of the file - temporary as it works with the console
+	public void print() {
+		System.out.println(CSVUtil.toFormattedString(fields));
+		for (int i = 0; i < this.records.length; i++) {
+			System.out.println(this.records[i].toString());
+		}
+	}
+	
+	//copy this file and return the new file
+	public CSVFile copy() {
+		CSVFile new_file = new CSVFile(this.fields.clone(), this.records.clone());
+		return new_file;
 	}
 }
