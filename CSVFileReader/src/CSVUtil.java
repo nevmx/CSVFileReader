@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.ArrayUtils;
 
 //Various useful functions, this is to avoid polluting other classes
 public class CSVUtil {
@@ -74,13 +75,14 @@ public class CSVUtil {
 		return 0;
 	}
 	
-	//find a Record in a Record[] and return the index
-	public int seekRecord(Record[] haystack, Record needle) {
+	//find a Record in a Record[] and return the index (BY REFERENCE)
+	public static int seekRecord(Record[] haystack, Record needle) {
 		for (int i = 0; i < haystack.length; i++) {
-			if (haystack[i].toString().equals(needle.toString())) {
+			if (haystack[i] == needle)
 				return i;
-			}
 		}
+		
+		//not found
 		return -1;
 	}
 	
@@ -111,5 +113,23 @@ public class CSVUtil {
 		}
 		ret += str[i];
 		return ret;
+	}
+	
+	//remove a record from an array of records by index
+	public static Record[] removeRecord(Record[] array, int idx) {
+		//simply remove the element at index idx
+		return ArrayUtils.remove(array, idx);
+	}
+	
+	//remove a record from an array of records by Record reference
+	public static void removeRecord(Record[] array, Record to_be_removed) {
+		array = ArrayUtils.remove(array, seekRecord(array, to_be_removed));
+	}
+	
+	//print out an array of records
+	public static void print(Record[] records) {
+		for (int i = 0; i < records.length; i++) {
+			records[i].print();
+		}
 	}
 }
